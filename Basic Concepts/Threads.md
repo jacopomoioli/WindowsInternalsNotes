@@ -10,6 +10,8 @@ Schedulable entity within a process that is responsible for code execution. A th
 
 Structure of the thread is architecture-specific and known as "context". WinAPI `GetThreadContext` provides access to it in the CONTEXT block.
 
+Every thread within a process shares the process' virtual address space, even if each one has its own context.
+
 The switching between two threads involves kernel scheduler, and it's computationally expensive. because of that, Windows implements two mechanisms: fibers and user-mode scheduling
 
 ## Fibers (aka Lightweight threads)
@@ -25,3 +27,9 @@ Several problems
 - invisible to the kernel
 - sharing issues of the thread local storage
 - cannot run concurrently
+
+## User Mode Scheduling Threads (UMS)
+On 64bit windows only, same pros of fibers but
+- they have their kernel thread state, so visible to the kernel
+- possible to issue blocking system calls and share resources in multiple UMS threads
+- possible to switch execution context in user mode instead of using the scheduler
