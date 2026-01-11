@@ -1,0 +1,1 @@
+Operating modes for the CPU with different levels of protections
