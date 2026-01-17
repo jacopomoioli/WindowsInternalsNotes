@@ -1,0 +1,6 @@
+- [ ] Test SECFORCE
+- [ ] Studiare Mate1 Compito3
+- [ ] Studiare Prog1 Teoria
+- [ ] Studiare Prog2 Laboratorio
+- [ ] Blogpost "Windows Internals Fundamentals Concepts"
+- [ ] Blogpost "Keeping up with the VBS: Virtualization Based Security Services in Windows 11"
