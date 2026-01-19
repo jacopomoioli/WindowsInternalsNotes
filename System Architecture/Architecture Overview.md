@@ -47,3 +47,11 @@ User mode processes (generally) do not use direct syscalls, but subsystem DLLs t
 - Ntdll.dll: internal syscalls
 - Kernel32.dll, Advapi32.dll, user32.dll, gdi32.dll: core win subsystem dll
 - \SystemRoot\System32\Drivers\*.sys: Core driver files
+
+## Portability
+Windows portability across different hw architectures
+- using a layered design: 
+	- Ntoskrnl.exe contains architecture-independent functions
+	- hal.dll contains architecture-dependent functions
+- Using C language (+ some C++ and some assembly)
+
