@@ -55,3 +55,35 @@ Windows portability across different hw architectures
 	- hal.dll contains architecture-dependent functions
 - Using C language (+ some C++ and some assembly)
 
+## Symmetric Multiprocessing
+Windows is a Symmetric multiprocessing OS (SMP): there is no master & secondary processor and the OS itself can be scheduled to run on any processor, countrary to ASMP (Asymmetric Multi Processing) where there is one master CPU that executes the kernel and secondary processors to execute user code.
+
+4 different types of multiprocessor systems:
+- **Multicore**: Different, multiple physical cores inside the same package. 
+- **Simultaneous Multi Threaded (SMT)**: support for hyperthreading (2 logical CPU on a single physical core), where each logical CPU has its own state but shared execution engine and cache.
+- **Heterogeneous**: ARM-specific implementation called "big.LITTLE". differences between cores (clock speed, power draw, etc), but still able to execute same instructions. 
+- **Non-Uniform Memory Access (NUMA)**: Processors grouped in nodes, each one wit its own processor and memory. Connected to the rest of the system using an interconnection bus.
+
+## Client vs Server edtions
+Windows 11
+- Client Edition
+    - Home
+    - Pro, Pro for Education, Pro for Workstation
+    - Education
+    - Enterprise
+    - IoT Enterprise LTSC
+- Server Edition (Windows server 2025)
+    - Standard
+    - Datacenter
+    - Azure Datacenter
+
+Info about the running edition @ `HKLM\SYSTEM\CurrentControlSet\ProductOptions`, queryable using
+- `VerifyVersionInfo` (User-mode, WinAPI, winbase.h, kernel32.dll)
+- `RtlGetVersion`, `RtlVerifyVersionInfo` (Kernel-mode, WDK)
+
+ProductType can be:
+- WinNT: Windows clients
+- LanmanNT: Windows server DC
+- ServerNT: Windows server (No DC)
+
+Client and server versions share core files, but different optimizations about scheduling and resource allocation at boot time and run time
