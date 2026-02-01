@@ -18,9 +18,15 @@ Both VLTs are built on top of Hyper-V.
 => Rings enforce POWER, VTLs enforce ISOLATION
 
 - VLT1 Ring0: can access everything on both rings and VTLs (thanks an thru the hypervisor)
+    - only entity that can configure SLAT (Second Level Address Translation): tell the hypervisor to limit the access of VLT0 Ring3 to specified memory regions
 - VLT0 Ring0: can access everything in VLT0 only (VLT1 is completely isolated)
 - VLT1 Ring3: can access directly only itself, but it can interact with VLT1 Ring0
 - VLT0 Ring3: least powerful
+
+I/O MMU (Memory Management Unit) prevents VLT0 Ring0 device drivers to access physical memory directly (and bypass VLTs and SLAT because no logical addresses) by virtualizing the memory access from the devices.
+
+Inside the VLT1 Ring3 (IUM) only special, MS-signed binaries (called **Trustlets**) are allowed to run. Secure kernel (editable only by MS) has a sort of "trustlet allow list", so it's impossible to add a new trustlet (if you aren't microsoft) or tamper an existing one (it would make the signature invalid).
+
 
 ## IUM 
 - Environment with restrictions about allowed syscalls usable by regular usermode DLLs
