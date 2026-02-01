@@ -17,8 +17,10 @@ Both VLTs are built on top of Hyper-V.
 - VTL1 user mode cannot interact with VTL0 kernel because IUM is on ring3 while VTL0 kernel on ring0
 => Rings enforce POWER, VTLs enforce ISOLATION
 
-VTL1 user mode applications are not more powerful, just isolated from VLT0 user mode; 
-VLT1 kernel mode is the most powerful (VLT1 & ring0), and has complete access on VLT0
+- VLT1 Ring0: can access everything on both rings and VTLs (thanks an thru the hypervisor)
+- VLT0 Ring0: can access everything in VLT0 only (VLT1 is completely isolated)
+- VLT1 Ring3: can access directly only itself, but it can interact with VLT1 Ring0
+- VLT0 Ring3: least powerful
 
 ## IUM 
 - Environment with restrictions about allowed syscalls usable by regular usermode DLLs
